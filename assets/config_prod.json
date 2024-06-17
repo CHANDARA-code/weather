@@ -1,0 +1,6 @@
+{
+  "name": "prod",
+  "apiUrl": "https://dev.example.com/api",
+  "featureFlag": false,
+  "openWeatherAPIKey": "93a23477ef9135f40e19f97322b494f6"
+}

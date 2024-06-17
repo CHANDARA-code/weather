@@ -1,0 +1,30 @@
+app:
+  ios:
+    bundleId: com.example.weather
+  android:
+    applicationId: com.example.weather
+flavors:
+  dev:
+    app:
+      name: "Weather Dev"
+      icon: "assets/icons/app_icon_dev.png"
+    android:
+      applicationId: com.example.weather.dev
+    ios:
+      bundleId: com.example.weather.dev
+  prod:
+    app:
+      name: "Weather Prod"
+      icon: "assets/icons/app_icon_prod.png"
+    android:
+      applicationId: com.example.weather.prod
+    ios:
+      bundleId: com.example.weather.prod
+  staging:
+    app:
+      name: "Weather Staging"
+      icon: "assets/icons/app_icon_staging.png"
+    android:
+      applicationId: com.example.weather.staging
+    ios:
+      bundleId: com.example.weather.staging
