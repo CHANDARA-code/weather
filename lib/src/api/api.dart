@@ -16,6 +16,11 @@ class OpenWeatherMapAPI {
         parametersBuilder: () => cityQueryParameters(city),
       );
 
+  Uri forecastHourly(String city) => _buildUri(
+        endpoint: "weather?forecast/hourly",
+        parametersBuilder: () => cityQueryParameters(city),
+      );
+
   Uri _buildUri({
     required String endpoint,
     required Map<String, dynamic> Function() parametersBuilder,

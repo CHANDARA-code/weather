@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather/config/app_config.dart';
 import 'package:weather/src/api/api.dart';
-import 'package:weather/src/api/api_keys.dart';
 import 'package:weather/src/features/weather/data/api_exception.dart';
 import 'package:weather/src/features/weather/domain/forecast/forecast.dart';
 import 'package:weather/src/features/weather/domain/weather/weather.dart';
@@ -17,6 +16,10 @@ class HttpWeatherRepository {
 
   Future<Forecast> getForecast({required String city}) => _getData(
         uri: api.forecast(city),
+        builder: (data) => Forecast.fromJson(data),
+      );
+  Future<Forecast> getForecastHourly({required String city}) => _getData(
+        uri: api.forecastHourly(city),
         builder: (data) => Forecast.fromJson(data),
       );
 
@@ -50,13 +53,6 @@ class HttpWeatherRepository {
 
 /// Providers used by rest of the app
 final weatherRepositoryProvider = Provider<HttpWeatherRepository>((ref) {
-  /// Use the API key passed via --dart-define,
-  /// or fallback to the one defined in api_keys.dart
-  // set key to const
-  // const apiKey = String.fromEnvironment(
-  //   'API_KEY',
-  //   defaultValue: APIKeys.openWeatherAPIKey,
-  // );
   final apiKey = AppConfig.instance.openWeatherAPIKey;
   return HttpWeatherRepository(
     api: OpenWeatherMapAPI(apiKey),

@@ -5,21 +5,20 @@ import 'package:weather/src/features/weather/application/providers.dart';
 import 'package:weather/src/features/weather/domain/weather/weather_data.dart';
 import 'package:weather/src/features/weather/presentation/weather_icon_image.dart';
 
-class HourlyWeather extends ConsumerWidget {
-  const HourlyWeather({super.key});
+class HourlyWeatherV2 extends ConsumerWidget {
+  const HourlyWeatherV2({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final forecastDataValue = ref.watch(hourlyWeatherProvider);
+
     return forecastDataValue.when(
       data: (forecastData) {
-        // API returns data points in 3-hour intervals -> 1 day = 8 intervals
-        final items = [0, 8, 16, 24, 32];
-        return HourlyWeatherRow(
-          weatherDataItems: [
-            for (var i in items) forecastData.list[i],
-          ],
-        );
+        var filteredData = forecastData.list.where((data) {
+          return data.date.hour >= 12 && data.date.hour <= 24;
+        }).toList();
+
+        return HourlyWeatherRow(weatherDataItems: filteredData);
       },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (e, __) => Text(e.toString()),
@@ -33,11 +32,16 @@ class HourlyWeatherRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: weatherDataItems
-          .map((data) => HourlyWeatherItem(data: data))
-          .toList(),
+    return SizedBox(
+      height: 130, // Set a fixed height for the ListView
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: weatherDataItems.length,
+        itemBuilder: (context, index) {
+          final data = weatherDataItems[index];
+          return HourlyWeatherItem(data: data);
+        },
+      ),
     );
   }
 }
@@ -58,7 +62,10 @@ class HourlyWeatherItem extends ConsumerWidget {
             DateFormat.E().format(data.date),
             style: textTheme.bodySmall!.copyWith(fontWeight: fontWeight),
           ),
-          Text("${data.description}"),
+          Text(
+            DateFormat('HH:mm').format(data.date),
+            style: textTheme.bodySmall!.copyWith(fontWeight: fontWeight),
+          ),
           const SizedBox(height: 8),
           WeatherIconImage(iconUrl: data.iconUrl, size: 48),
           const SizedBox(height: 8),

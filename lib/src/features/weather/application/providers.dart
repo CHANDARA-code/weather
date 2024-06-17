@@ -4,7 +4,7 @@ import 'package:weather/src/features/weather/domain/forecast/forecast_data.dart'
 import 'package:weather/src/features/weather/domain/weather/weather_data.dart';
 
 final cityProvider = StateProvider<String>((ref) {
-  return 'London';
+  return 'Kampot';
 });
 
 final currentWeatherProvider =
@@ -20,5 +20,13 @@ final hourlyWeatherProvider =
   final city = ref.watch(cityProvider);
   final forecast =
       await ref.watch(weatherRepositoryProvider).getForecast(city: city);
+  return ForecastData.from(forecast);
+});
+
+final hourlyWeatherProviderV2 =
+    FutureProvider.autoDispose<ForecastData>((ref) async {
+  final city = ref.watch(cityProvider);
+  final forecast =
+      await ref.watch(weatherRepositoryProvider).getForecastHourly(city: city);
   return ForecastData.from(forecast);
 });
