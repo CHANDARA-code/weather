@@ -50,7 +50,7 @@ class ConditionScreen extends HookConsumerWidget {
 
       await prefs.setString('conditions', jsonEncode(conditions));
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Preferences saved!')),
+        SnackBar(content: Text('saved!')),
       );
     }
 
@@ -63,7 +63,13 @@ class ConditionScreen extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Conditions', style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              'Conditions',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(color: Colors.black),
+            ),
             SizedBox(height: 10),
             Wrap(
               spacing: 8.0,
@@ -90,7 +96,11 @@ class ConditionScreen extends HookConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Alerts', style: Theme.of(context).textTheme.titleMedium),
+                Text('Alerts',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(color: Colors.black)),
                 Switch(
                   value: areAlertsEnabled.value,
                   onChanged: (value) {

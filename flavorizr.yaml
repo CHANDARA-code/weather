@@ -14,7 +14,7 @@ flavors:
       bundleId: com.example.weather.dev
   prod:
     app:
-      name: "Weather Prod"
+      name: "Weather"
       icon: "assets/icons/app_icon_prod.png"
     android:
       applicationId: com.example.weather.prod

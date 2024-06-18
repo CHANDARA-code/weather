@@ -22,10 +22,10 @@ class WeatherPage extends HookConsumerWidget {
             .requestPermission(DeviceAppPermission.notification);
         if (isGranted) {
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Notification permission granted')));
+              SnackBar(content: Text('Notification is allowded')));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Notification permission denied')));
+              SnackBar(content: Text('Notification  is not allowed')));
         }
       }
 

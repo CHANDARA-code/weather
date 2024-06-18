@@ -39,7 +39,7 @@ android {
         prod {
             dimension "flavor-type"
             applicationId "com.example.weather.prod"
-            resValue "string", "app_name", "Weather Prod"
+            resValue "string", "app_name", "Weather"
         }
         staging {
             dimension "flavor-type"
